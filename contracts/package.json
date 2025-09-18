@@ -1,0 +1,11 @@
+{
+  "name": "bluecarbon-contracts",
+  "version": "1.0.0",
+  "scripts": {
+    "deploy:local": "npx hardhat run --network localhost scripts/deploy.js"
+  },
+  "devDependencies": {
+    "hardhat": "^2.17.0",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0"
+  }
+}
