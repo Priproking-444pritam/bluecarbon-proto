@@ -1,4 +1,4 @@
-// src/App.jsx
+
 import React from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -14,10 +14,12 @@ import { ethers } from "ethers";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-// lazy-load map component
-const ProjectMap = React.lazy(() => import("./components/ProjectMap"));
 
-// sample chart data
+const ProjectMap = React.lazy(() => import("./components/ProjectMap"));
+const VerificationWorkflow = React.lazy(() => import("./components/VerificationWorkflow"));
+
+
+
 const sampleChartData = {
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
   datasets: [
@@ -45,14 +47,14 @@ const sampleChartData = {
   ],
 };
 
-// sample projects for map
+
 const sampleProjects = [
   { id: 1, name: "Sundarbans Mangrove", lat: 21.9497, lng: 89.1833, ecosystem: "Mangroves" },
   { id: 2, name: "Florida Everglades", lat: 25.2866, lng: -80.8987, ecosystem: "Wetlands" },
   { id: 3, name: "Great Barrier Reef", lat: -18.2871, lng: 147.6992, ecosystem: "Seagrass" },
 ];
 
-// Wallet connect component (ethers v6)
+
 function WalletConnect() {
   const [address, setAddress] = React.useState(null);
   const [balance, setBalance] = React.useState(null);
@@ -103,7 +105,7 @@ function WalletConnect() {
   );
 }
 
-// Multi-step registration form (autosaves draft to localStorage)
+
 function MultiStepRegistration() {
   const LS_KEY = "bluecarbon:registration:draft";
   const [step, setStep] = React.useState(1);
@@ -209,7 +211,7 @@ function MultiStepRegistration() {
   );
 }
 
-// Small UI pieces
+
 const Sidebar = ({ active = "Dashboard", onSelect }) => {
   const nav = [
     { title: "Dashboard", key: "Dashboard" },
@@ -270,7 +272,6 @@ const StatCard = ({ title, value, sub }) => (
   </div>
 );
 
-// Page components
 const DashboardMain = () => (
   <div className="p-6 space-y-6">
     <div className="grid grid-cols-4 gap-4">
