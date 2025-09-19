@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -14,46 +13,23 @@ import { ethers } from "ethers";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-
 const ProjectMap = React.lazy(() => import("./components/ProjectMap"));
 const VerificationWorkflow = React.lazy(() => import("./components/VerificationWorkflow"));
-
-
 
 const sampleChartData = {
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
   datasets: [
-    {
-      label: "Mangroves",
-      data: [2800, 3000, 3100, 3200, 3500, 3700, 3900, 4100],
-      tension: 0.4,
-      borderColor: "#7c3aed",
-      backgroundColor: "rgba(124,58,237,0.05)",
-    },
-    {
-      label: "Wetlands",
-      data: [1200, 1300, 1350, 1400, 1500, 1600, 1700, 1800],
-      tension: 0.4,
-      borderColor: "#059669",
-      backgroundColor: "rgba(5,150,105,0.05)",
-    },
-    {
-      label: "Seagrass",
-      data: [800, 900, 950, 1000, 1100, 1200, 1300, 1400],
-      tension: 0.4,
-      borderColor: "#f59e0b",
-      backgroundColor: "rgba(245,158,11,0.05)",
-    },
+    { label: "Mangroves", data: [2800, 3000, 3100, 3200, 3500, 3700, 3900, 4100], tension: 0.4, borderColor: "#7c3aed", backgroundColor: "rgba(124,58,237,0.05)" },
+    { label: "Wetlands", data: [1200, 1300, 1350, 1400, 1500, 1600, 1700, 1800], tension: 0.4, borderColor: "#059669", backgroundColor: "rgba(5,150,105,0.05)" },
+    { label: "Seagrass", data: [800, 900, 950, 1000, 1100, 1200, 1300, 1400], tension: 0.4, borderColor: "#f59e0b", backgroundColor: "rgba(245,158,11,0.05)" }
   ],
 };
-
 
 const sampleProjects = [
   { id: 1, name: "Sundarbans Mangrove", lat: 21.9497, lng: 89.1833, ecosystem: "Mangroves" },
   { id: 2, name: "Florida Everglades", lat: 25.2866, lng: -80.8987, ecosystem: "Wetlands" },
   { id: 3, name: "Great Barrier Reef", lat: -18.2871, lng: 147.6992, ecosystem: "Seagrass" },
 ];
-
 
 function WalletConnect() {
   const [address, setAddress] = React.useState(null);
@@ -63,10 +39,7 @@ function WalletConnect() {
 
   async function connectWallet() {
     try {
-      if (!window.ethereum) {
-        setError("No wallet detected. Install MetaMask.");
-        return;
-      }
+      if (!window.ethereum) { setError("No wallet detected. Install MetaMask."); return; }
       const provider = new ethers.BrowserProvider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = await provider.getSigner();
@@ -87,9 +60,7 @@ function WalletConnect() {
       <div className="flex items-center justify-between">
         <div>
           <div className="text-sm text-gray-500">Wallet Connection</div>
-          <div className="mt-2">
-            {address ? <div className="font-mono text-xs">{address}</div> : <div className="text-sm text-gray-600">Not connected</div>}
-          </div>
+          <div className="mt-2">{address ? <div className="font-mono text-xs">{address}</div> : <div className="text-sm text-gray-600">Not connected</div>}</div>
         </div>
         <div className="text-right">
           <div className="text-xs text-gray-400">Balance</div>
@@ -105,7 +76,6 @@ function WalletConnect() {
   );
 }
 
-
 function MultiStepRegistration() {
   const LS_KEY = "bluecarbon:registration:draft";
   const [step, setStep] = React.useState(1);
@@ -118,27 +88,17 @@ function MultiStepRegistration() {
     }
   });
 
-  React.useEffect(() => {
-    localStorage.setItem(LS_KEY, JSON.stringify(form));
-  }, [form]);
+  React.useEffect(() => { localStorage.setItem(LS_KEY, JSON.stringify(form)); }, [form]);
 
-  function updateField(k, v) {
-    setForm(prev => ({ ...prev, [k]: v }));
-  }
+  function updateField(k, v) { setForm(prev => ({ ...prev, [k]: v })); }
   function next() { if (step < 4) setStep(s => s + 1); }
   function prev() { if (step > 1) setStep(s => s - 1); }
-  function submit() {
-    localStorage.removeItem(LS_KEY);
-    alert("Project submitted (prototype). Draft cleared.");
-    setForm({ name: "", description: "", country: "", lat: "", long: "", ecosystem: "Mangroves", documents: [] });
-    setStep(1);
-  }
+  function submit() { localStorage.removeItem(LS_KEY); alert("Project submitted (prototype). Draft cleared."); setForm({ name: "", description: "", country: "", lat: "", long: "", ecosystem: "Mangroves", documents: [] }); setStep(1); }
 
   return (
     <div className="bg-white rounded shadow-sm border p-6">
       <h2 className="text-2xl font-semibold">Project Registration</h2>
       <div className="text-xs text-gray-500 mt-1">Step {step} of 4</div>
-
       {step === 1 && (
         <div className="mt-4 space-y-3">
           <label className="text-sm">Project Name</label>
@@ -147,7 +107,6 @@ function MultiStepRegistration() {
           <textarea value={form.description} onChange={e => updateField("description", e.target.value)} className="w-full border p-2 rounded" rows={4} />
         </div>
       )}
-
       {step === 2 && (
         <div className="mt-4 space-y-3">
           <label className="text-sm">Country</label>
@@ -164,7 +123,6 @@ function MultiStepRegistration() {
           </div>
         </div>
       )}
-
       {step === 3 && (
         <div className="mt-4 space-y-3">
           <label className="text-sm">Ecosystem Type</label>
@@ -174,7 +132,6 @@ function MultiStepRegistration() {
             <option>Seagrass</option>
             <option>Mixed</option>
           </select>
-
           <label className="text-sm">Upload Documents (prototype)</label>
           <input type="file" onChange={e => {
             const file = e.target.files?.[0];
@@ -190,14 +147,12 @@ function MultiStepRegistration() {
           </ul>
         </div>
       )}
-
       {step === 4 && (
         <div className="mt-4">
           <h3 className="font-semibold">Review</h3>
           <pre className="text-xs mt-2 bg-gray-50 p-3 rounded">{JSON.stringify(form, null, 2)}</pre>
         </div>
       )}
-
       <div className="mt-4 flex justify-between">
         <div>
           <button onClick={prev} className="px-3 py-2 bg-gray-100 rounded" disabled={step === 1}>Previous</button>
@@ -210,7 +165,6 @@ function MultiStepRegistration() {
     </div>
   );
 }
-
 
 const Sidebar = ({ active = "Dashboard", onSelect }) => {
   const nav = [
@@ -280,13 +234,11 @@ const DashboardMain = () => (
       <StatCard title="Pending Verifications" value="8" sub="-15% from last week" />
       <StatCard title="Blockchain Transactions" value="234" sub="+23% from last month" />
     </div>
-
     <div className="grid grid-cols-3 gap-6">
       <div className="col-span-2 bg-white rounded shadow-sm border p-4">
         <h3 className="font-semibold">Carbon Sequestration Trends</h3>
         <div className="mt-4"><Line data={sampleChartData} /></div>
       </div>
-
       <div className="bg-white rounded shadow-sm border p-4">
         <h3 className="font-semibold">Project Locations</h3>
         <div className="mt-4" style={{ height: "280px" }}>
@@ -296,16 +248,9 @@ const DashboardMain = () => (
         </div>
       </div>
     </div>
-
     <div className="grid grid-cols-2 gap-6">
-      <div className="bg-white rounded shadow-sm border p-4">
-        <h3 className="font-semibold">Ecosystem Health Metrics</h3>
-        <div className="mt-4">Metric cards here</div>
-      </div>
-      <div className="bg-white rounded shadow-sm border p-4">
-        <h3 className="font-semibold">Recent Activity</h3>
-        <div className="mt-4">Logs and uploads</div>
-      </div>
+      <div className="bg-white rounded shadow-sm border p-4"><h3 className="font-semibold">Ecosystem Health Metrics</h3><div className="mt-4">Metric cards here</div></div>
+      <div className="bg-white rounded shadow-sm border p-4"><h3 className="font-semibold">Recent Activity</h3><div className="mt-4">Logs and uploads</div></div>
     </div>
   </div>
 );
@@ -318,7 +263,6 @@ const MRVDashboard = () => (
       <StatCard title="Verification Progress" value="78%" sub="+5.2% vs last month" />
       <StatCard title="Data Quality Score" value="94.2 /100" sub="-1.1% vs last month" />
     </div>
-
     <div className="bg-white rounded shadow-sm border p-4">
       <h3 className="font-semibold">Sequestration Trends</h3>
       <div className="mt-4"><Line data={sampleChartData} /></div>
@@ -350,30 +294,7 @@ const ProjectsList = () => (
   </div>
 );
 
-const VerificationWorkflow = () => (
-  <div className="p-6">
-    <div className="bg-white rounded shadow-sm border p-4">
-      <h2 className="text-2xl font-semibold">Verification Workflow</h2>
-      <div className="mt-4 flex gap-6">
-        <div className="w-1/3">
-          <div className="text-sm text-gray-500">Project Queue</div>
-          <div className="mt-4 space-y-3">
-            {["Mangrove Restoration Initiative - Sundarbans", "Seagrass Conservation Project - Great Barrier Reef", "Coastal Wetland Protection - California"].map((p, i) => (
-              <div key={i} className="p-3 border rounded hover:bg-gray-50">
-                {p}
-                <div className="text-xs text-gray-400">status: pending</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex-1 border-l pl-6 text-gray-400">No Project Selected. Select a project from the queue to view details.</div>
-      </div>
-    </div>
-  </div>
-);
-
 const BlockchainIntegration = () => {
-  // Mint helper
   async function doMint(addr) {
     try {
       if (!window.ethereum) { alert("No wallet found"); return; }
@@ -397,7 +318,6 @@ const BlockchainIntegration = () => {
       <div className="bg-white rounded shadow-sm border p-4">
         <h2 className="text-2xl font-semibold">Blockchain Integration</h2>
         <p className="text-gray-500">Manage Web3 connectivity, smart contracts, and tokenization processes</p>
-
         <div className="mt-6 grid grid-cols-2 gap-6">
           <WalletConnect />
           <div className="bg-gray-50 p-4 rounded border">
@@ -408,7 +328,6 @@ const BlockchainIntegration = () => {
             </div>
           </div>
         </div>
-
         <div className="mt-6">
           <h3 className="font-semibold">Smart Contracts</h3>
           <div className="mt-2 text-sm text-gray-500">Use the CarbonToken contract to mint test credits. Deploy the contract from the /contracts folder then paste the contract address below.</div>
@@ -439,7 +358,6 @@ export default function BlueCarbonApp() {
                 <button onClick={() => setRoute("Blockchain")} className={`px-3 py-2 rounded ${route === "Blockchain" ? "bg-sky-600 text-white" : "bg-white border"}`}>Blockchain</button>
               </div>
             </div>
-
             <div className="bg-transparent min-h-[60vh] rounded">
               {route === "Dashboard" && <DashboardMain />}
               {route === "Register" && <div className="p-6"><MultiStepRegistration /></div>}
