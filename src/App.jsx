@@ -321,16 +321,13 @@ const BlockchainIntegration = () => {
         <p className="text-gray-500">Manage Web3 connectivity, smart contracts, and tokenization processes</p>
         <div className="mt-6 grid grid-cols-2 gap-6">
           <WalletConnect />
-          
-            <div className="bg-gray-50 p-4 rounded border">
-  <div className="text-sm text-gray-500">Network</div>
-  <div className="mt-2">Ganache Local — Chain ID 1337</div>
-  <div className="mt-4">
-    <button className="px-3 py-2 bg-red-600 text-white rounded">Disconnect</button>
-  </div>
-</div>
-
-          
+          <div className="bg-gray-50 p-4 rounded border">
+            <div className="text-sm text-gray-500">Network</div>
+            <div className="mt-2">Polygon Testnet — Chain ID 80001</div>
+            <div className="mt-4">
+              <button className="px-3 py-2 bg-red-600 text-white rounded">Disconnect</button>
+            </div>
+          </div>
         </div>
         <div className="mt-6">
           <h3 className="font-semibold">Smart Contracts</h3>
